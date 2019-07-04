@@ -284,7 +284,6 @@ for (i in x){
   rating_data<-append(rating_data,b)
   
 }
-View(rating_data)
 #Data-Preprocessing: converting metascore to numerical
 rating_data<-as.numeric(rating_data)
 
@@ -312,3 +311,12 @@ movies_df3=data.frame(Title = title_data,rating=rating_data,
                       Actor = actors_data)
 t1234=rbind(t123,movies_df3)
 View(t1234)
+
+names(t1234)
+names(t1234) = gsub(" ","",names(t1234)) 
+names(t1234)
+library(mongolite)
+c=mongo(collection = "t1234",db="t1234q")
+c$insert(t1234)
+c$count()
+c$iterate()$one()
